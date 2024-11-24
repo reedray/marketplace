@@ -1,4 +1,11 @@
 linters-settings:
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com.marketplace)
+      - blank
+      - dot
   errcheck:
     check-type-assertions: true
   goconst:
@@ -22,8 +29,8 @@ linters-settings:
 linters:
   disable-all: true
   enable:
+    - gci
     - bodyclose
-    - depguard
     - dogsled
     - dupl
     - errcheck

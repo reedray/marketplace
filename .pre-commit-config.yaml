@@ -6,3 +6,5 @@ repos:
             entry: golangci-lint run
             types: [go]
             language: system
+            args:
+              - --fix

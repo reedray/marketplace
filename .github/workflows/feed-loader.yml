@@ -1,7 +1,7 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go
+name: Feed-Loader build
 
 on:
   push:
@@ -14,15 +14,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses : actions/checkout@v4 # ставит working-directory в корень проекта
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
+    - name: Set up Go 1.23.3
+      uses: actions/setup-go@v5
       with:
-        go-version: '1.20'
+        go-version: '1.23.3'
 
-    - name: Build
-      run: go build -v ./...
+    - name: Run linter
+      uses: golangci/golangci-lint-action@v6
+      with:
+        args: --timeout=30s --config=.golangci.yaml
 
-    - name: Test
+    - name: Launch tests
+      working-directory: ./services/feed-loader
       run: go test -v ./...
+
